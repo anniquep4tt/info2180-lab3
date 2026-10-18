@@ -2,8 +2,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const squares = document.querySelectorAll("#board div");
 
-    squares.forEach(function(square) {
-        square.classList.add("square");
-    });
+    let currentPlayer = "X";
+    let board = ["", "", "", "", "", "", "", "", ""];
 
+    squares.forEach(function(square, index) {
+
+        square.classList.add("square");
+
+        square.addEventListener("click", function() {
+
+            if (board[index] === "") {
+
+                square.textContent = currentPlayer;
+                square.classList.add(currentPlayer);
+
+                board[index] = currentPlayer;
+
+                if (currentPlayer === "X") {
+                    currentPlayer = "O";
+                } else {
+                    currentPlayer = "X";
+                }
+            }
+
+        });
+    });
 });
