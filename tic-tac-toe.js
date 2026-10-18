@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         square.addEventListener("click", function() {
 
-            if (board[index] === "") {
+            if (board[index] === "" && !gameOver) {
 
                 square.textContent = currentPlayer;
                 square.classList.add(currentPlayer);
@@ -35,11 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 checkWinner();
 
-
-                if (currentPlayer === "X") {
-                    currentPlayer = "O";
-                } else {
-                    currentPlayer = "X";
+                if (!gameOver) {
+                    if (currentPlayer === "X") {
+                        currentPlayer = "O";
+                    } else {
+                        currentPlayer = "X";
+                    }
                 }
             }
 
