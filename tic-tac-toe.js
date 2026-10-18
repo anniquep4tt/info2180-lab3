@@ -1,9 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const squares = document.querySelectorAll("#board div");
+    const status = document.getElementById("status");
 
     let currentPlayer = "X";
     let board = ["", "", "", "", "", "", "", "", ""];
+    let gameOver = false;
+
+
+    const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
 
     squares.forEach(function(square, index) {
 
@@ -17,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 square.classList.add(currentPlayer);
 
                 board[index] = currentPlayer;
+
+                checkWinner();
+
 
                 if (currentPlayer === "X") {
                     currentPlayer = "O";
@@ -36,7 +53,29 @@ document.addEventListener("DOMContentLoaded", function() {
             square.classList.remove("hover");
         });
 
-
-
     });
+
+    function checkWinner() {
+
+        for (let combination of winningCombinations) {
+
+            let a = combination[0];
+            let b = combination[1];
+            let c = combination[2];
+
+            if (board[a] !== "" &&
+                board[a] === board[b] &&
+                board[b] === board[c]) {
+
+                status.textContent =
+                    "Congratulations! " + board[a] + " is the Winner!";
+
+                status.classList.add("you-won");
+
+                gameOver = true;
+                return;
+            }
+        }
+    }
+
 });
